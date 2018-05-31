@@ -1,0 +1,127 @@
+.Side-bar {
+  height: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 50px;
+  left: 0;
+  width: 200px;
+  background-color: rgb(255, 232, 167);
+  padding-top: 30px;
+  overflow-x: hidden;
+}
+
+.Side-bar button {
+  margin-left: 12px;
+  margin-top: 3px;
+  padding:6px 0 6px 0;
+	font:bold 20px Arial;
+	background:#f5f5f5;
+	color:#555;
+	border-radius:2px;
+	width:175px;
+	border:1px solid #ccc;
+}
+
+.Side-bar button:hover {
+  color: #e49329;
+}
+
+.Results {
+  margin-top: 30px;
+  margin-left: 12px;
+  margin-right: 13px;
+  padding:6px 6px 6px 6px;
+  background: #e7b777;
+}
+
+.Results div {
+  margin-top: 10px;
+  font:bold 15px Arial;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.Marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  background-color: rgb(255, 232, 167);
+  border: 2px solid rgb(53, 53, 53);
+  border-radius: 100%;
+  user-select: none;
+  transform: translate(-50%, -50%);
+}
+
+.MarkerHidden {
+  display:none;
+}
+
+.Routes {
+  margin-top: 0;
+  margin-bottom: 0;
+  width: 160px;
+  display: flex;
+  position: fixed;
+  top: 0;
+  background: rgb(36, 90, 190);
+  height: 50px;
+}
+
+.Routes li {
+  margin-right: 20px;
+  margin-top: 2px;
+  display: flex;
+  position:relative;
+  width:46px;
+	height:46px;
+	background:#fafafa;
+	box-shadow:2px 2px 8px #aaa;
+	font:bold 13px Arial;
+	border-radius:50%;
+  color:#555;
+  justify-content: center;
+  align-items: center;
+}
+
+.Routes li a:hover {
+  color: #e49329;
+}
+
+.Routes li a {
+  font:bold 12px Arial;
+  color: rgb(36, 90, 190);
+}
+
+.Homepage {
+  left : 15px;
+  top : 50px;
+  position: relative;
+  font:bold 28px Arial;
+}
+
+.Inputbar{
+  left: 250px;
+  top: 25px;
+  z-index: 2;
+  position: absolute;
+  width: 400px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
