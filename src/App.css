@@ -60,10 +60,6 @@
   transform: translate(-50%, -50%);
 }
 
-.MarkerHidden {
-  display:none;
-}
-
 .Routes {
   margin-top: 0;
   margin-bottom: 0;

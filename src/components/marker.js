@@ -8,7 +8,6 @@ class Marker extends React.Component {
     this.state = {
       lng: props.lng,
       lat: props.lat,
-      hidden: props.hidden,
     }
   }
 
