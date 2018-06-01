@@ -14,10 +14,9 @@ class SimpleMap extends Component {
       lngPoint: 10,
       latResearch: 90,
       lngResearch: 0,
-      map: null,
+      pins: [],
     };
-    this.handleClick = this.handleClick.bind(this);
-    this.setPositionResearch = this.setPositionResearch.bind(this);
+    this.map = React.createRef()
   }
 
   static defaultProps = {
@@ -28,7 +27,7 @@ class SimpleMap extends Component {
     zoom: 2
   };
 
-  handleClick(event) {
+  handleClick = (event) => {
     this.state.setPositionPin(event.lat, event.lng)
     this.setState({
       latPoint: event.lat,
@@ -37,42 +36,29 @@ class SimpleMap extends Component {
     console.log(event.lat + ',' + event.lng)
   }
 
-  setPositionResearch(newLat, newLong) {
+  setPositionResearch = (newLat, newLong) => {
     this.setState({
       latResearch: newLat,
       lngResearch: newLong,
     })
   }
 
-  handleOnChange(e) {
+  handleOnChange = (e) => {
     console.log(e.center, e.zoom)
     this.state.setPositionMap(e.center.lat + ',' + e.center.lng, e.zoom)
   }
 
+  putPins = (results) => {
+    let pins = []
+    if(results) {
+      for(let i=0; i<results.length; i++) {
+        pins.push(<Marker lat={results[i].venue.location.lat} lng={results[i].venue.location.lng}/>)
+      }
+    }
+    this.setState({pins: pins});
+  }
 
   render() {
-    let map = <GoogleMapReact onClick={this.handleClick.bind(this)}
-      onChange={this.handleOnChange.bind(this)}
-      style={{
-        height: '100vh', width: '100%',
-        position: "relative", top: '-18px'
-      }}
-      onClick={(e) => (this.handleClick(e))}
-      bootstrapURLKeys={{ key: 'AIzaSyC_hKRbfBW7RsmoEV5p4fbFNMGKT5v_m8Q' }}
-      defaultCenter={this.props.center}
-      defaultZoom={this.props.zoom}
-    >
-      <Marker
-        lat={this.state.latPoint}
-        lng={this.state.lngPoint}
-      />
-      <Marker
-        lat={this.state.latResearch}
-        lng={this.state.lngResearch}
-      />
-    </GoogleMapReact>;
-
-
 
     return (
       // Important! Always set the container height explicitly
@@ -80,7 +66,28 @@ class SimpleMap extends Component {
         <Inputbar
           setPositionResearch={this.setPositionResearch}
         />
-        {map}
+        <GoogleMapReact ref={this.map} 
+        onClick={this.handleClick}
+        onChange={this.handleOnChange}
+        style={{
+          height: '100vh', width: '100%',
+          position: "relative", top: '-18px'
+        }}
+
+        bootstrapURLKeys={{ key: 'AIzaSyC_hKRbfBW7RsmoEV5p4fbFNMGKT5v_m8Q' }}
+        defaultCenter={this.props.center}
+        defaultZoom={this.props.zoom}
+      >
+        <Marker
+          lat={this.state.latPoint}
+          lng={this.state.lngPoint}
+        />
+        <Marker
+          lat={this.state.latResearch}
+          lng={this.state.lngResearch}
+        />
+        {this.state.pins}
+      </GoogleMapReact>;
       </div>
     );
   }

@@ -10,23 +10,23 @@ class Menu extends Component {
       links: [],
       getPositionPin: props.getPositionPin,
       getPositionMap: props.getPositionMap,
-      response: undefined,
+      putPins: props.putPins,
+      response: false,
       renderResp: [],
     }
-    this.requestApi = this.requestApi.bind(this);
   }
 
   componentDidMount() {
     this.links(['food', 'shops', 'arts', 'topPicks']);
   }
 
-  requestApi(categorie, position, zoom) {
+  requestApi = (categorie, position, zoom, limit) => {
     console.log(position)
     FSApi.exploreBuisness({
       ll: position,
       section: categorie,
-      radius: Math.floor((2 / zoom) * 100000),
-      limit: 5,
+      radius: 100000,
+      limit: limit,
       client_id: 'TCVQA5HHTCASCE0LROS4VEDVEFL0GP1GJITLHSC5JJQOVWCG',
       client_secret: '1RVM30U4DB4HD00AHT2IMRXN2NWUOPMBXQ2BEZVWJSFWJQPN',
       v: '20180520',
@@ -39,6 +39,7 @@ class Menu extends Component {
           responses.push(<div> {res.venue.name} </div>);
         });
         this.setState({ renderResp: responses });
+        this.state.putPins(this.state.response.items)
       }
     })
   }
@@ -46,20 +47,28 @@ class Menu extends Component {
   links(sections) {
     let chainLink = [];
     chainLink.push(<div style={{textAlign: 'center', marginTop:'10px', marginBottom:'5px'}}> Avec un point : </div>);
+
     sections.forEach((section) => {
-      let element = <button onClick={() => (this.requestApi(section, this.state.getPositionPin(), 2))} > {section} </button>
+      let element = <button onClick={() => (this.requestApi(
+        section, 
+        this.state.getPositionPin(), 
+        4, 40))} > {section} </button>
       chainLink.push(element)
     });
+
     chainLink.push(<div > Avec le centre de la carte : </div>);
+
     sections.forEach((section) => {
       let element = <button onClick={() => (this.requestApi(
         section,
         this.state.getPositionMap()[0], //Position
-        this.state.getPositionMap()[1]))} /* Zoom */>  
+        this.state.getPositionMap()[1], // Zoom 
+        40))}>  
         {section + ' Map !'}
       </button>
       chainLink.push(element)
     });
+
     this.setState({ links: chainLink })
   }
 

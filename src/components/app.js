@@ -13,44 +13,47 @@ class App extends Component {
       positionMap: '10,10',
       zoom: 2,
     }
-    this.setPositionPin = this.setPositionPin.bind(this)
-    this.getPositionPin = this.getPositionPin.bind(this)
-    this.setPositionMap = this.setPositionMap.bind(this)
-    this.getPositionMap = this.getPositionMap.bind(this)
+    this.map = React.createRef();
   }
 
-  setPositionPin(newLat, newLong) {
+  setPositionPin = (newLat, newLong) => {
     this.setState({
       lattitudePin: newLat,
       longitudePin: newLong,
     })
   }
 
-  getPositionPin() {
+  getPositionPin = () => {
     return this.state.lattitudePin + ',' + this.state.longitudePin;
   }
 
-  setPositionMap(newPositionMap, newZoom) {
+  setPositionMap = (newPositionMap, newZoom) => {
     this.setState({
       positionMap: newPositionMap,
       zoom: newZoom,
     })
   }
 
-  getPositionMap() {
+  getPositionMap = () => {
     return [this.state.positionMap, this.state.zoom];
+  }
+
+  putPins = (responses) => {
+    this.map.current.putPins(responses);
   }
 
   render() {
     return (
       <div className="App">
         <MapContainer
+          ref = {this.map}
           setPositionPin = {this.setPositionPin}
           setPositionMap = {this.setPositionMap}
-        />
+        />;
         <Menu
           getPositionPin = {this.getPositionPin}
           getPositionMap = {this.getPositionMap}
+          putPins = {this.putPins}
         />
       </div>
     );
