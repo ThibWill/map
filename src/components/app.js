@@ -12,17 +12,17 @@ class App extends Component {
       lattitudePin: -10,
       positionMap: '10,10',
       zoom: 2,
-      businnesses: [],
       flagResearch: false,
       typeResearch: 'noResearch',
     }
+    this.map = React.createRef();
   }
 
   setPositionPin = (newLat, newLong) => {
     this.setState({
       lattitudePin: newLat,
       longitudePin: newLong,
-    })
+    });
   }
 
   getPositionPin = () => {
@@ -33,7 +33,7 @@ class App extends Component {
     this.setState({
       positionMap: newPositionMap,
       zoom: newZoom,
-    })
+    });
   }
   
   onResearchChange = (newTypeResearch, newFlagResearch) => {
@@ -43,8 +43,8 @@ class App extends Component {
 
   onBoundsChange = () => {
     if(this.state.flagResearch) { 
-      return this.state.typeResearch 
-    } else { return false }
+      return this.state.typeResearch; 
+    } else { return false; }
   }
 
   getPositionMap = () => {
@@ -52,16 +52,13 @@ class App extends Component {
   }
 
   onBusinnesChange = (responses) => {
-    this.setState({
-      businnesses: responses,
-    })
+    this.map.current.putPins(responses);
   }
 
   render() {
     return (
       <div className="App">
-        <MapContainer
-          businneses={this.state.businnesses}
+        <MapContainer ref={this.map}
           setPositionPin = {this.setPositionPin}
           setPositionMap = {this.setPositionMap}
           onBoundsChange = {this.onBoundsChange}

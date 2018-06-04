@@ -25,10 +25,6 @@ class SimpleMap extends Component {
     zoom: 2
   };
 
-  componentWillReceiveProps(nextProps) {
-    this.putPins(nextProps.businneses)
-  }
-
   handleClick = (event) => {
     this.props.setPositionPin(event.lat, event.lng);
     this.setState({
