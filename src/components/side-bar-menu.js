@@ -10,7 +10,6 @@ class Menu extends Component {
       links: [],
       getPositionPin: props.getPositionPin,
       getPositionMap: props.getPositionMap,
-      putPins: props.putPins,
       response: false,
       renderResp: [],
     }
@@ -39,9 +38,26 @@ class Menu extends Component {
           responses.push(<div> {res.venue.name} </div>);
         });
         this.setState({ renderResp: responses });
-        this.state.putPins(this.state.response.items)
+        this.props.onBusinnesChange(this.state.response.items)
       }
     })
+  }
+
+  onClickResearch = (section) => {
+    this.requestApi(
+      section,
+      this.state.getPositionMap()[0], //Position
+      this.state.getPositionMap()[1], // Zoom 
+      40); 
+      this.props.onResearchChange(section, true);
+  }
+
+  onClickResearchByPoint = (section) => {
+    this.requestApi(
+      section, 
+      this.state.getPositionPin(), 
+      4, 40)
+    this.props.onResearchChange(null, false);
   }
 
   links(sections) {
@@ -49,21 +65,14 @@ class Menu extends Component {
     chainLink.push(<div style={{textAlign: 'center', marginTop:'10px', marginBottom:'5px'}}> Avec un point : </div>);
 
     sections.forEach((section) => {
-      let element = <button onClick={() => (this.requestApi(
-        section, 
-        this.state.getPositionPin(), 
-        4, 40))} > {section} </button>
+      let element = <button onClick={() => this.onClickResearchByPoint(section)} > {section} </button>
       chainLink.push(element)
     });
 
     chainLink.push(<div > Avec le centre de la carte : </div>);
 
     sections.forEach((section) => {
-      let element = <button onClick={() => (this.requestApi(
-        section,
-        this.state.getPositionMap()[0], //Position
-        this.state.getPositionMap()[1], // Zoom 
-        40))}>  
+      let element = <button onClick={() => this.onClickResearch(section)}>  
         {section + ' Map !'}
       </button>
       chainLink.push(element)
@@ -71,6 +80,7 @@ class Menu extends Component {
 
     this.setState({ links: chainLink })
   }
+
 
 
   render() {
