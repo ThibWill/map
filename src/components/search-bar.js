@@ -10,7 +10,6 @@ class Inputbar extends React.Component {
     this.state = {
       value: '',
       items: [],
-      setPositionResearch: props.setPositionResearch,
     }
   }
 
@@ -77,7 +76,7 @@ class Inputbar extends React.Component {
         onChange={this.handleOnChange.bind(this)}
         onSelect={(value, event) => {
           this.setState({ value });
-          this.state.setPositionResearch(event.coordinates[1], event.coordinates[0]);
+          this.props.setPositionResearch(event.coordinates[1], event.coordinates[0]);
         }}
         //style input
         inputProps={{ style:  {

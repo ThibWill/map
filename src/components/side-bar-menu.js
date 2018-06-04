@@ -8,8 +8,6 @@ class Menu extends Component {
     super(props);
     this.state = {
       links: [],
-      getPositionPin: props.getPositionPin,
-      getPositionMap: props.getPositionMap,
       response: false,
       renderResp: [],
     }
@@ -46,8 +44,8 @@ class Menu extends Component {
   onClickResearch = (section) => {
     this.requestApi(
       section,
-      this.state.getPositionMap()[0], //Position
-      this.state.getPositionMap()[1], // Zoom 
+      this.props.getPositionMap()[0], //Position
+      this.props.getPositionMap()[1], // Zoom 
       40); 
       this.props.onResearchChange(section, true);
   }
@@ -55,7 +53,7 @@ class Menu extends Component {
   onClickResearchByPoint = (section) => {
     this.requestApi(
       section, 
-      this.state.getPositionPin(), 
+      this.props.getPositionPin(), 
       4, 40)
     this.props.onResearchChange(null, false);
   }
