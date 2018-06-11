@@ -5,7 +5,7 @@ import ReactAutocomplete from 'react-autocomplete'
 
 class Inputbar extends React.Component {
 
-  constructor (props) {
+  constructor () {
     super(props)
     this.state = {
       value: '',
@@ -27,7 +27,7 @@ class Inputbar extends React.Component {
             if (i < 5 && resp.features[i]) {
               if(resp.features[i].properties.name) {
                 itemsList.push({
-                  id: i, 
+                  key: i, 
                   label: resp.features[i].properties.name, 
                   country: resp.features[i].properties.country, 
                   city: resp.features[i].properties.city, 
@@ -36,7 +36,7 @@ class Inputbar extends React.Component {
               }
               else if(resp.features[i].properties.street) {
                 itemsList.push({
-                  id: i, 
+                  key: i, 
                   label: resp.features[i].properties.housenumber + ' ' + resp.features[i].properties.street, 
                   country: resp.features[i].properties.country, 
                   city: resp.features[i].properties.city, 
@@ -106,7 +106,6 @@ class Inputbar extends React.Component {
           zIndex:'2',
         }}
       />
-      //<input type="text" onChange={this.handleOnChange.bind(this)}className='Inputbar'></input>
     );
   }
 

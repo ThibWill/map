@@ -32,9 +32,9 @@ class Menu extends Component {
         console.log(resp.response.groups[0]);
         this.setState({ response: resp.response.groups[0] });
         const responses = [];
-        resp.response.groups[0].items.forEach((res) => {
-          responses.push(<div> {res.venue.name} </div>);
-        });
+        for(let i=0; i<resp.response.groups[0].items.length;i++) {
+          responses.push(<div key={i} > {resp.response.groups[0].items[i].venue.name} </div>);
+        }
         this.setState({ renderResp: responses });
         this.props.onBusinnesChange(this.state.response.items)
       }
@@ -60,17 +60,18 @@ class Menu extends Component {
 
   links(sections) {
     let chainLink = [];
-    chainLink.push(<div style={{textAlign: 'center', marginTop:'10px', marginBottom:'5px'}}> Avec un point : </div>);
-
+    let indice = 0;
+    chainLink.push(<div key={indice} style={{textAlign: 'center', marginTop:'10px', marginBottom:'5px'}}> Avec un point : </div>);
     sections.forEach((section) => {
-      let element = <button onClick={() => this.onClickResearchByPoint(section)} > {section} </button>
+      indice++;
+      let element = <button key={indice} onClick={() => this.onClickResearchByPoint(section)} > {section} </button>
       chainLink.push(element)
     });
-
-    chainLink.push(<div > Avec le centre de la carte : </div>);
-
+    indice++;
+    chainLink.push(<div key={indice}> Avec le centre de la carte : </div>);
     sections.forEach((section) => {
-      let element = <button onClick={() => this.onClickResearch(section)}>  
+      indice++;
+      let element = <button key={indice} onClick={() => this.onClickResearch(section)}>  
         {section + ' Map !'}
       </button>
       chainLink.push(element)
