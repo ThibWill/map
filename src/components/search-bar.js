@@ -5,7 +5,7 @@ import ReactAutocomplete from 'react-autocomplete'
 
 class Inputbar extends React.Component {
 
-  constructor () {
+  constructor (props) {
     super(props)
     this.state = {
       value: '',

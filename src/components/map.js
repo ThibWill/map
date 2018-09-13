@@ -159,7 +159,7 @@ class SimpleMap extends Component {
           setPositionResearch={this.setPositionResearch}
         />
         {this.props.onBoundsChange() ? <Bouton centerOnResearch = {this.centerOnResearch} /> : null}
-        <GoogleMapReact
+        <GoogleMapReact 
           ref={this.map}
           onClick={this.handleClick}
           onChange={this.handleOnChange}
